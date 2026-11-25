@@ -2,7 +2,7 @@
 
 The **Build OpenGL 4.6 SDK** GitHub Actions workflow builds a fresh developer SDK
 and a showcase app ZIP on Ubuntu 24.04. It runs on pushes and pull requests
-targeting `main`, version tags and manual requests. The default `dynamic`
+targeting `main`, version tags, manual requests and a nightly schedule. The default `dynamic`
 profile starts at 1080p60 and supports up to 2160p120 at runtime. Manual runs
 also offer fixed 1080p60, 1440p120 and 2160p120 profiles. The fresh binaries
 are verified on the build host.
@@ -104,8 +104,8 @@ console qualification.
    identify that scope explicitly. Do not attach an older SDK's acceptance to a
    rebuild.
 
-Every successful run keeps the SDK archive and the showcase app ZIP as Actions
-artifacts for seven days. The showcase app ZIP
+Push, pull request and manual builds keep the SDK archive and the showcase app ZIP
+as Actions artifacts for seven days. The showcase app ZIP
 stores every entry with permissions 0777 (`tools/zip-open-modes.py`), because the
 console only starts an app whose files are open to all; the build fails otherwise.
 The SDK archive keeps its ordinary permissions.
@@ -128,6 +128,19 @@ build tools. GitHub Actions are commit-pinned; build jobs have read-only reposit
 permission and no console access. Only the separate release job can write
 release assets. The older sample-validated bundle remains a separate frozen
 artifact, documented in `docs/sdk-bundle.md`.
+
+## Compiler cache
+
+Pushes to `main` and the nightly build at 08:23 UTC maintain a shared `ccache`
+cache. Pull requests and release tags reuse compatible cached objects from
+`main`. The key includes the runner OS and architecture, toolchain packages,
+pinned dependencies, SDK profile and commit. A new commit can reuse the latest
+cache with the same toolchain and profile. Each build reports its hit rate.
+
+The nightly run builds and checks both packages without publishing them. For a
+long-lived fallback, run **Build OpenGL 4.6 SDK** on `main` with **snapshot**
+selected. This stores the cache in the `build-cache` prerelease for use after
+eviction. An empty or unavailable cache triggers a normal full build.
 
 Frozen releases such as [SDK 0.2.0](release-g62.md) use `sdk-*` tags and
 preverified assets rather than this fresh-build workflow. Their archives retain
