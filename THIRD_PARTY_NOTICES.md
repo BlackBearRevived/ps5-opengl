@@ -7,7 +7,7 @@
 | [Mesa](https://www.mesa3d.org/) | OpenGL, Gallium, GLSL/NIR, ACO/RADV and AMD layout infrastructure |
 | [OpenGNM PSBC](https://github.com/PS4-OpenGNM/opengnm-psbc) / [OpenGNM](https://github.com/PS4-OpenGNM/opengnm) | Shader compiler foundation and reference declarations |
 | [PS5 Payload SDK](https://github.com/ps5-payload-dev/sdk) | Public homebrew toolchain and imports |
-| [Native app boilerplate](https://github.com/blackbearreloaded/ps5-native-app-boilerplate) | Native app assembly and folder packaging |
+| [Native app boilerplate](https://github.com/BlackBearRedux/ps5-native-app-boilerplate) | Native app assembly and folder packaging |
 | [Khronos VK-GL-CTS](https://github.com/KhronosGroup/VK-GL-CTS) | Pinned OpenGL test inventory and runner |
 | [SDL2](https://github.com/libsdl-org/SDL), [Dear ImGui](https://github.com/ocornut/imgui), [NanoVG](https://github.com/memononen/nanovg), [Sokol](https://github.com/floooh/sokol) | Integration and renderer examples |
 
@@ -41,7 +41,7 @@ module is copied into this repository. Patches and the test inventory are includ
 | [vecmath](https://github.com/floooh/sokol-samples/tree/8afa83928ce1870efeb0d513e7c4dce4f5db7b3e/libs/vecmath) | Unmodified matrix/vector header bundled with the pinned cube sample | [MIT option](LICENSES/vecmath.txt) |
 | [PS5 SDL2 fork](https://github.com/ps5-payload-dev/SDL) / [SDL](https://github.com/libsdl-org/SDL) | Optional SDL 2.30.12 video integration at `8c56053f13ca13a0c050de613706ff69eb615836`; retains upstream core/events/joystick, replaces the selected video backend and marks the static-dynapi alteration | [zlib](LICENSES/SDL2.txt); upstream per-file notices retained in exported source |
 | [PS5 Payload SDK](https://github.com/ps5-payload-dev/sdk) | Public homebrew compilers, import libraries and C/C++ support; build prerequisite | GPL-3.0-or-later, Copyright (C) John Törnblom, plus the SDK's component/per-file licenses; not a vendor SDK |
-| [Native app boilerplate](https://github.com/blackbearreloaded/ps5-native-app-boilerplate) | Native runtime, linker/container conversion, assets and folder assembly | Its GPL-3.0-or-later and retained component notices |
+| [Native app boilerplate](https://github.com/BlackBearRedux/ps5-native-app-boilerplate) | Native runtime, linker/container conversion, assets and folder assembly | Its GPL-3.0-or-later and retained component notices |
 | [LLVM](https://llvm.org/) | Clang/LLD, compiler builtins, libc++, libc++abi and libunwind | Apache-2.0 with LLVM exceptions or component-specific notices |
 | [zlib](https://zlib.net/) | Native boilerplate build-time compression | zlib license in fetched source |
 

@@ -50,6 +50,11 @@ The log prints the CPU time per stage every two seconds, for example
 
 ## Build
 
+From the repository root, `make demo` builds the showcase and its release ZIP.
+It fetches the [PS5 Native App Boilerplate](https://github.com/BlackBearRedux/ps5-native-app-boilerplate)
+at the revision pinned in [`dependencies.json`](../../dependencies.json). To
+use a downloaded SDK, run `make demo PS5_OPENGL_PREFIX=/path/to/extracted/sdk`.
+
 With a downloaded SDK 0.5.0 (or `make sdk-gl46` first):
 
 ```sh

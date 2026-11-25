@@ -16,9 +16,13 @@ print(pin["url"], pin["revision"])' "$root/dependencies.json")
 if [[ ! -d $template/.git ]]; then
     rm -rf -- "$template"
     git clone --quiet "$url" "$template" >&2
+elif [[ $(git -C "$template" remote get-url origin) != "$url" ]]; then
+    git -C "$template" remote set-url origin "$url"
 fi
 if [[ $(git -C "$template" rev-parse HEAD) != "$revision" ]]; then
-    git -C "$template" fetch --quiet origin "$revision" >&2 || true
+    if ! git -C "$template" cat-file -e "$revision^{commit}" 2>/dev/null; then
+        git -C "$template" fetch --quiet origin "$revision" >&2
+    fi
     git -C "$template" checkout --quiet "$revision" >&2
 fi
 [[ $(git -C "$template" rev-parse HEAD) == "$revision" ]]

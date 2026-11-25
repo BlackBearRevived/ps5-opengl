@@ -12,15 +12,19 @@ on:
         type: boolean
         default: false
       profile:
-        description: Fresh SDK build profile (host checks only); dynamic = one SDK, display mode chosen at runtime
+        description: SDK build profile (dynamic selects the display mode at runtime)
         type: choice
         default: dynamic
         options: [dynamic, 1080p60, 1440p120, 2160p120]
-  # A build on main is started by hand (Run workflow): pushes to main build nothing.
-  # Every run builds the SDK and the showcase app ZIP as run artifacts; only a v* tag
-  # reaches the release job.
+  pull_request:
+    branches: [main]
   push:
-    tags: ['v*']
+    branches: [main]
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+
+concurrency:
+  group: sdk-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read

@@ -1,9 +1,11 @@
 # CI-built SDK archives
 
 The **Build OpenGL 4.6 SDK** GitHub Actions workflow builds a fresh developer SDK
-on Ubuntu 24.04. Manual runs offer **1080p60** (default), **1440p120** or
-**2160p120**; `v*` tag builds retain 1080p60. Its binaries are
-**host-checked, not console-validated**.
+and a showcase app ZIP on Ubuntu 24.04. It runs on pushes and pull requests
+targeting `main`, version tags and manual requests. The default `dynamic`
+profile starts at 1080p60 and supports up to 2160p120 at runtime. Manual runs
+also offer fixed 1080p60, 1440p120 and 2160p120 profiles. The fresh binaries
+are verified on the build host.
 Historical full CTS, sampled CTS, performance and stability results apply only to
 their recorded binary identities, not automatically to these downloads.
 
@@ -56,11 +58,13 @@ for the individual checks and native coverage limits.
 ## Download and use
 
 Use the workflow's **Run workflow** button to build any selected project branch.
-Download the `ps5-opengl-4.6-sdk` Actions artifact; GitHub wraps the two files below
-in a ZIP for download. The SDK itself is a `.tar.gz`, matching Linux/WSL builds:
+Download the `ps5-opengl-4.6-sdk` Actions artifact. GitHub wraps the SDK and
+showcase packages and their checksum files in a single ZIP for download:
 
 - `ps5-opengl-sdk-<version>.tar.gz`
 - `ps5-opengl-sdk-<version>.tar.gz.sha256`
+- `ps5-opengl-showcase-<version>-PPSA99005.zip`
+- `ps5-opengl-showcase-<version>-PPSA99005.zip.sha256`
 
 ```sh
 sha256sum --check ps5-opengl-sdk-*.tar.gz.sha256
@@ -88,10 +92,11 @@ console qualification.
 
 ## Maintainer release process
 
-1. Push and manually run **Build OpenGL 4.6 SDK** on the intended source revision.
-2. Inspect host/compiler checks, all 344 Core exports, three relocated consumer
-   links, archive checksums and the recorded build configuration.
-3. When ready, push a new version tag beginning with `v`. The same workflow builds
+1. Push the intended source revision to `main` and wait for **Build OpenGL 4.6 SDK**.
+2. Inspect host/compiler checks, all 657 Core exports, three relocated consumer
+   links, SDK and showcase checksums and the recorded build configuration.
+3. Set the showcase's `contentVersion` for the release and push a tag `vX.Y.Z`
+   on the checked commit. The same workflow builds
    from that tag and publishes the release, marked Latest. If a release for the
    tag already exists (notes written ahead, or a draft), the workflow adds the
    files it does not have yet and leaves its title, notes and files as they are.
@@ -99,16 +104,14 @@ console qualification.
    identify that scope explicitly. Do not attach an older SDK's acceptance to a
    rebuild.
 
-A push to `main` (so also a merged pull request) does not start this build; only
-**Host checks** runs on every push and pull request. Every manual or tag run keeps
-the SDK archive and the showcase app ZIP as Actions artifacts. The showcase app ZIP
+Every successful run keeps the SDK archive and the showcase app ZIP as Actions
+artifacts for seven days. The showcase app ZIP
 stores every entry with permissions 0777 (`tools/zip-open-modes.py`), because the
 console only starts an app whose files are open to all; the build fails otherwise.
 The SDK archive keeps its ordinary permissions.
 
 The SDK archive and the showcase app ZIP built by the workflow can be checked with
-`gh attestation verify <file> -R blackbearreloaded/ps5-opengl` (GitHub CLI); this
-covers releases built by GitHub Actions from now on, not earlier ones.
+`gh attestation verify <file> -R BlackBearRedux/ps5-opengl` (GitHub CLI).
 
 Manual runs only create Actions artifacts (seven-day retention); they do not
 create tags or releases. A release's files are the ones the workflow run for its
