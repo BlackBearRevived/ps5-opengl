@@ -111,7 +111,7 @@ console only starts an app whose files are open to all; the build fails otherwis
 The SDK archive keeps its ordinary permissions.
 
 The SDK archive and the showcase app ZIP built by the workflow can be checked with
-`gh attestation verify <file> -R BlackBearRedux/ps5-opengl` (GitHub CLI).
+`gh attestation verify <file> -R BlackBearRevived/ps5-opengl` (GitHub CLI).
 
 Manual runs only create Actions artifacts (seven-day retention); they do not
 create tags or releases. A release's files are the ones the workflow run for its

@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/BlackBearRedux/ps5-opengl/releases/latest"><img src="https://img.shields.io/github/v/release/BlackBearRedux/ps5-opengl?label=SDK" alt="Latest SDK release"></a>
-  <a href="https://github.com/BlackBearRedux/ps5-opengl/actions/workflows/release.yml"><img src="https://github.com/BlackBearRedux/ps5-opengl/actions/workflows/release.yml/badge.svg?branch=main" alt="Build OpenGL 4.6 SDK and showcase"></a>
+  <a href="https://github.com/BlackBearRevived/ps5-opengl/releases/latest"><img src="https://img.shields.io/github/v/release/BlackBearRevived/ps5-opengl?label=SDK" alt="Latest SDK release"></a>
+  <a href="https://github.com/BlackBearRevived/ps5-opengl/actions/workflows/release.yml"><img src="https://github.com/BlackBearRevived/ps5-opengl/actions/workflows/release.yml/badge.svg?branch=main" alt="Build OpenGL 4.6 SDK and showcase"></a>
   <img src="https://img.shields.io/badge/OpenGL-4.6%20Core-5586A4" alt="OpenGL 4.6 Core">
   <img src="https://img.shields.io/badge/GLSL-4.60-7DD3FC" alt="GLSL 4.60">
   <a href="docs/gl46-conformance-run.md"><img src="https://img.shields.io/badge/OpenGL%204.6%20CTS-98%2C590%20passed%20%7C%200%20failed-2EA44F" alt="OpenGL 4.6 conformance test run: 98,590 passed, 0 failed"></a>
@@ -49,7 +49,7 @@ and video show 60 FPS.*
 ### Run the showcase on PS5
 
 Download `ps5-opengl-showcase-<version>-PPSA99005.zip` and its `.sha256` file
-from the [latest release](https://github.com/BlackBearRedux/ps5-opengl/releases/latest).
+from the [latest release](https://github.com/BlackBearRevived/ps5-opengl/releases/latest).
 From the download directory in Linux or WSL, verify and extract the ZIP:
 
 ```sh
@@ -65,7 +65,7 @@ homebrew launcher. See the [showcase README](examples/core46-showcase/README.md)
 
 The SDK is a native C/C++ package distributed as a release archive. Download
 `ps5-opengl-sdk-<version>.tar.gz` and its `.sha256` file from the
-[latest release](https://github.com/BlackBearRedux/ps5-opengl/releases/latest).
+[latest release](https://github.com/BlackBearRevived/ps5-opengl/releases/latest).
 Verify and extract the archive in Linux or WSL:
 
 ```sh
@@ -93,7 +93,7 @@ eglBindAPI(EGL_OPENGL_API);
 ```
 
 Package the result as a native title folder (the
-[native app boilerplate](https://github.com/BlackBearRedux/ps5-native-app-boilerplate)
+[native app boilerplate](https://github.com/BlackBearRevived/ps5-native-app-boilerplate)
 does this) and launch it as a registered title; do not send it to an ELF loader.
 
 ## Display modes
@@ -223,14 +223,14 @@ the suite again. See [supported boundaries](docs/limitations.md).
 
 | SDK | Highlights |
 | --- | --- |
-| [1.0.3](https://github.com/BlackBearRedux/ps5-opengl/releases/tag/v1.0.3) | SDK and showcase builds in CI, with showcase packaging from the public native app boilerplate |
-| [1.0.2](https://github.com/BlackBearRedux/ps5-opengl/tree/v1.0.2) | Program query, draw statistics, submission retirement, legacy varying and scanout fixes |
-| [1.0.1](https://github.com/BlackBearRedux/ps5-opengl/tree/v1.0.1) | Fixes an abort or use-after-free when vertex buffers are re-sent while the driver holds their last reference |
-| [1.0.0](https://github.com/BlackBearRedux/ps5-opengl/tree/v1.0.0) | Passes the complete Khronos OpenGL 4.6 conformance test run ([report](docs/gl46-conformance-run.md)); robust-access and no-error contexts |
-| [0.6.0](https://github.com/BlackBearRedux/ps5-opengl/tree/v0.6.0) | Queued compute: about 15-35 us of CPU per dispatch instead of 1.1 ms; showcase demo app |
-| [0.5.0](https://github.com/BlackBearRedux/ps5-opengl/tree/v0.5.0) | One SDK for every display: 1080p/1440p/4K at 60/120 Hz chosen at runtime |
-| [0.4.1](https://github.com/BlackBearRedux/ps5-opengl/tree/v0.4.1) | Presentation, native preparation and descriptor publication fixes |
-| [0.3.0](https://github.com/BlackBearRedux/ps5-opengl/tree/v0.3.0) | First OpenGL 4.6 release ([scope](docs/release-0.3.0.md)) |
+| [1.0.3](https://github.com/BlackBearRevived/ps5-opengl/releases/tag/v1.0.3) | SDK and showcase builds in CI, with showcase packaging from the public native app boilerplate |
+| [1.0.2](https://github.com/BlackBearRevived/ps5-opengl/tree/v1.0.2) | Program query, draw statistics, submission retirement, legacy varying and scanout fixes |
+| [1.0.1](https://github.com/BlackBearRevived/ps5-opengl/tree/v1.0.1) | Fixes an abort or use-after-free when vertex buffers are re-sent while the driver holds their last reference |
+| [1.0.0](https://github.com/BlackBearRevived/ps5-opengl/tree/v1.0.0) | Passes the complete Khronos OpenGL 4.6 conformance test run ([report](docs/gl46-conformance-run.md)); robust-access and no-error contexts |
+| [0.6.0](https://github.com/BlackBearRevived/ps5-opengl/tree/v0.6.0) | Queued compute: about 15-35 us of CPU per dispatch instead of 1.1 ms; showcase demo app |
+| [0.5.0](https://github.com/BlackBearRevived/ps5-opengl/tree/v0.5.0) | One SDK for every display: 1080p/1440p/4K at 60/120 Hz chosen at runtime |
+| [0.4.1](https://github.com/BlackBearRevived/ps5-opengl/tree/v0.4.1) | Presentation, native preparation and descriptor publication fixes |
+| [0.3.0](https://github.com/BlackBearRevived/ps5-opengl/tree/v0.3.0) | First OpenGL 4.6 release ([scope](docs/release-0.3.0.md)) |
 | [0.2.0](docs/release-g62.md) | Historical OpenGL 3.3 release |
 
 ## Documentation

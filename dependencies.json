@@ -22,8 +22,8 @@
     "research_commit": "a11c1925e53c555ff882930fcfdb2d8936f52b88"
   },
   "native_boilerplate": {
-    "url": "https://github.com/BlackBearRedux/ps5-native-app-boilerplate.git",
-    "revision": "4f531c4b517f80bcb6b1267135848168d2250047",
+    "url": "https://github.com/BlackBearRevived/ps5-native-app-boilerplate.git",
+    "revision": "589e3c58c8aa8c565a3bf4d5f2f9d13365a0abd5",
     "payload_sdk": "v0.42",
     "payload_sdk_archive_sha256": "8cfbc7cd5811e719eb4f0c47eea668d3dc7b40bc8ab11c4a5031d40c23ec02da"
   }

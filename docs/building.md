@@ -26,7 +26,7 @@ paths. Upstream commits and archive hashes are pinned in
 Place the repositories alongside each other:
 
 ```sh
-git clone https://github.com/BlackBearRedux/ps5-native-app-boilerplate.git ../ps5-native-app-boilerplate
+git clone https://github.com/BlackBearRevived/ps5-native-app-boilerplate.git ../ps5-native-app-boilerplate
 git -C ../ps5-native-app-boilerplate checkout 4f531c4b517f80bcb6b1267135848168d2250047
 bash ../ps5-native-app-boilerplate/tools/setup-native-dependencies.sh
 ```
