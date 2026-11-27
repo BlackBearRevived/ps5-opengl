@@ -155,6 +155,12 @@ for directory in assets runtime sce_sys tooling tools; do
     mkdir -p "$app/$directory"
     cp -a "$template/$directory/." "$app/$directory/"
 done
+# lld can place .data.rel.ro before the GOT in this app. The template's
+# converter must map RELRO from the first section's file offset.
+relro_patch="$root/native-app/boilerplate-relro.patch"
+if ! patch --batch --forward --dry-run -R --silent -d "$app" -p1 < "$relro_patch" >/dev/null 2>&1; then
+    patch --batch --forward -d "$app" -p1 < "$relro_patch"
+fi
 heap_source="$app/tooling/native/sce_module_writer.cpp"
 heap_default='write_u64(result.data, result.heap_size, std::numeric_limits<std::uint64_t>::max());'
 test "$(grep -Fc "$heap_default" "$heap_source")" = 1
