@@ -223,6 +223,7 @@ the suite again. See [supported boundaries](docs/limitations.md).
 
 | SDK | Highlights |
 | --- | --- |
+| [1.0.4](https://github.com/BlackBearRevived/ps5-opengl/releases/tag/v1.0.4) | Builds the showcase with the updated native app template, fixes executable segment alignment, and ships a verified PS5 PKG alongside the folder ZIP |
 | [1.0.3](https://github.com/BlackBearRevived/ps5-opengl/releases/tag/v1.0.3) | SDK and showcase builds in CI, with showcase packaging from the public native app boilerplate |
 | [1.0.2](https://github.com/BlackBearRevived/ps5-opengl/tree/v1.0.2) | Program query, draw statistics, submission retirement, legacy varying and scanout fixes |
 | [1.0.1](https://github.com/BlackBearRevived/ps5-opengl/tree/v1.0.1) | Fixes an abort or use-after-free when vertex buffers are re-sent while the driver holds their last reference |
