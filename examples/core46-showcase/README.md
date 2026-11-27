@@ -1,6 +1,6 @@
 # OpenGL 4.6 showcase
 
-The project's demo app. Every SDK release attaches it, built against that SDK, as
+The showcase is built against the SDK from the same run. The CI artifact includes a verified PS5 PKG for a homebrew package installer and a folder ZIP named
 `ps5-opengl-showcase-<version>-PPSA99005.zip`: extract it and upload the
 `PPSA99005` folder to `/data/homebrew/`. It appears on the home screen as
 **PS5 OpenGL Showcase** with its own icon, backgrounds and selection music
@@ -50,7 +50,7 @@ The log prints the CPU time per stage every two seconds, for example
 
 ## Build
 
-From the repository root, `make demo` builds the showcase and its release ZIP.
+From the repository root, `make demo` builds the showcase and both its folder ZIP and its installable PKG. Each has a matching `.sha256` file in `build/demo/`.
 It fetches the [PS5 Native App Boilerplate](https://github.com/BlackBearRevived/ps5-native-app-boilerplate)
 at the revision pinned in [`dependencies.json`](../../dependencies.json). To
 use a downloaded SDK, run `make demo PS5_OPENGL_PREFIX=/path/to/extracted/sdk`.

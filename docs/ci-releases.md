@@ -1,7 +1,7 @@
 # CI-built SDK archives
 
 The **Build OpenGL 4.6 SDK** GitHub Actions workflow builds a fresh developer SDK
-and a showcase app ZIP on Ubuntu 24.04. It runs on pushes and pull requests
+and a showcase app ZIP and PKG on Ubuntu 24.04. It runs on pushes and pull requests
 targeting `main`, version tags, manual requests and a nightly schedule. The default `dynamic`
 profile starts at 1080p60 and supports up to 2160p120 at runtime. Manual runs
 also offer fixed 1080p60, 1440p120 and 2160p120 profiles. The fresh binaries
@@ -65,6 +65,8 @@ showcase packages and their checksum files in a single ZIP for download:
 - `ps5-opengl-sdk-<version>.tar.gz.sha256`
 - `ps5-opengl-showcase-<version>-PPSA99005.zip`
 - `ps5-opengl-showcase-<version>-PPSA99005.zip.sha256`
+- `ps5-opengl-showcase-<version>-PPSA99005.pkg`
+- `ps5-opengl-showcase-<version>-PPSA99005.pkg.sha256`
 
 ```sh
 sha256sum --check ps5-opengl-sdk-*.tar.gz.sha256
@@ -104,18 +106,18 @@ console qualification.
    identify that scope explicitly. Do not attach an older SDK's acceptance to a
    rebuild.
 
-Push, pull request and manual builds keep the SDK archive and the showcase app ZIP
+Push, pull request and manual builds keep the SDK archive, showcase ZIP and showcase PKG
 as Actions artifacts for seven days. The showcase app ZIP
 stores every entry with permissions 0777 (`tools/zip-open-modes.py`), because the
 console only starts an app whose files are open to all; the build fails otherwise.
 The SDK archive keeps its ordinary permissions.
 
-The SDK archive and the showcase app ZIP built by the workflow can be checked with
+The SDK archive, showcase ZIP and showcase PKG built by the workflow can be checked with
 `gh attestation verify <file> -R BlackBearRevived/ps5-opengl` (GitHub CLI).
 
 Manual runs only create Actions artifacts (seven-day retention); they do not
 create tags or releases. A release's files are the ones the workflow run for its
-tag built and attested: the SDK archive, the showcase app ZIP and their checksum
+tag built and attested: the SDK archive, showcase ZIP, showcase PKG and their checksum
 files; none is attached by hand. Existing releases/assets are never overwritten:
 a file a release already has is neither replaced nor removed, and the run prints
 a warning that it did not come from this run and may have no attestation, then

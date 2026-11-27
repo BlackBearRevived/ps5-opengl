@@ -33,6 +33,9 @@ class DisplayProfileTests(unittest.TestCase):
         self.assertIn('uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2', workflow)
         self.assertLess(workflow.index('- name: Attest the release files'),
                         workflow.index('name: ps5-opengl-4.6-sdk'))
+        for suffix in (".zip", ".pkg"):
+            self.assertIn("release/ps5-opengl-showcase-${{ env.SDK_VERSION }}-PPSA99005" + suffix + "\n", workflow)
+            self.assertIn("release/*" + suffix + ".sha256", workflow)
         self.assertIn('commands=657', verifier)
 
     def test_release_never_replaces_or_removes_a_file(self):
@@ -41,7 +44,7 @@ class DisplayProfileTests(unittest.TestCase):
             self.assertNotIn(forbidden, workflow)
         publish = workflow[workflow.index('- name: Publish OpenGL 4.6 release'):]
         # No release for the tag: created as before. One exists: missing files only, with a warning for the rest.
-        self.assertIn('gh release create "$GITHUB_REF_NAME" ./*.tar.gz ./*.tar.gz.sha256 ./*.zip ./*.zip.sha256 \\\n'
+        self.assertIn('gh release create "$GITHUB_REF_NAME" ./*.tar.gz ./*.tar.gz.sha256 ./*.zip ./*.zip.sha256 ./*.pkg ./*.pkg.sha256 \\\n'
                       '            --repo "$GITHUB_REPOSITORY" --verify-tag --latest \\\n', publish)
         self.assertIn("--json assets --jq '.assets[].name'", publish)
         self.assertIn('gh release upload "$TAG" "$file" --repo "$GITHUB_REPOSITORY"\n', publish)

@@ -17,7 +17,7 @@ help:
 	  'cubes: package the 3D frame benchmark using the current source runtime' \
 	  'gl46-demo: package the compute-driven OpenGL 4.6 cube animation' \
 	  'showcase: package the OpenGL 4.6 showcase (4K, compute, indirect count, bloom)' \
-	  'demo: build the SDK if needed, then the showcase demo app and its release zip' \
+	  'demo: build the SDK if needed, then the showcase demo app and its release ZIP and PKG' \
 	  'test: dependency-free host tests and published validation audit' \
 	  'test-imgui: software-Mesa renderer and TV-demo input checks' \
 	  'cts-fetch: also fetch pinned optional CTS sources; see docs/testing.md'
@@ -54,7 +54,7 @@ showcase:
 
 # The demo app: the showcase built against an SDK (the one built here unless
 # PS5_OPENGL_PREFIX names another), with its pinned boilerplate fetched below
-# build/. DEMO_VERSION names the zip in build/demo/.
+# build/. DEMO_VERSION names both showcase packages in build/demo/.
 PS5_OPENGL_PREFIX ?= $(CURDIR)/build/sdk/ps5-opengl-gl46
 DEMO_VERSION ?= dev
 # The fetched boilerplate's payload SDK is used unless PS5_PAYLOAD_SDK is set

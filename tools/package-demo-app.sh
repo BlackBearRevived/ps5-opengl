@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # Packages the built showcase demo app as
-# <destination>/ps5-opengl-showcase-<version>-PPSA99005.zip plus its .sha256.
+# <destination>/ps5-opengl-showcase-<version>-PPSA99005.{zip,pkg}, each with its own .sha256.
 
 set -euo pipefail
 root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
@@ -52,5 +52,13 @@ if release:
         f"contentVersion {metadata['contentVersion']} is not {expected}: "
         "raise it in examples/core46-showcase/sce_sys/param.json")
 PY
+# Use the same checksum-pinned packager as the native app template.
+kit="$root/build/ps5-pkgkit-0.1.0"
+python3 -m venv "$kit"
+"$kit/bin/python" -m pip install --no-index --no-deps --require-hashes \
+    'https://github.com/BlackBearRevived/ps5-pkgkit/releases/download/v0.1.0/ps5_pkgkit-0.1.0-py3-none-any.whl#sha256=71cfa598c509322c6752c094486935a8334d7cf0fceb73e838810e46a3823541'
+"$kit/bin/ps5-pkgkit" build "$dist/PPSA99005" -o "$name.pkg"
+"$kit/bin/ps5-pkgkit" verify "$name.pkg"
+sha256sum "$name.pkg" > "$name.pkg.sha256"
 sha256sum "$name.zip" > "$name.zip.sha256"
-printf 'Demo app: %s\n' "$destination/$name.zip"
+printf 'Demo app: %s\n' "$destination/$name.zip" "$destination/$name.pkg"

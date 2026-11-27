@@ -198,11 +198,11 @@ jobs:
       - name: Build the showcase demo app (PPSA99005) against this SDK
         run: |
           make demo PS5_OPENGL_PREFIX="$RUNNER_TEMP/relocated-sdk" DEMO_VERSION="$SDK_VERSION"
-          cp build/demo/ps5-opengl-showcase-"$SDK_VERSION"-PPSA99005.zip* "$RUNNER_TEMP/release/"
-      - name: Check the showcase app ZIP (every entry 0777) and its checksum
+          cp build/demo/ps5-opengl-showcase-"$SDK_VERSION"-PPSA99005.{zip,zip.sha256,pkg,pkg.sha256} "$RUNNER_TEMP/release/"
+      - name: Check showcase checksums and ZIP permissions
         run: |
           cd "$RUNNER_TEMP/release"
-          sha256sum --check ./*.zip.sha256
+          sha256sum --check ./*.zip.sha256 ./*.pkg.sha256
           python3 - ps5-opengl-showcase-"$SDK_VERSION"-PPSA99005.zip <<'PY'
           import sys, zipfile
           with zipfile.ZipFile(sys.argv[1]) as z:
@@ -225,6 +225,7 @@ jobs:
           subject-path: |
             ${{ runner.temp }}/release/ps5-opengl-sdk-${{ env.SDK_VERSION }}.tar.gz
             ${{ runner.temp }}/release/ps5-opengl-showcase-${{ env.SDK_VERSION }}-PPSA99005.zip
+            ${{ runner.temp }}/release/ps5-opengl-showcase-${{ env.SDK_VERSION }}-PPSA99005.pkg
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: github.event_name != 'schedule'
         with:
@@ -234,6 +235,8 @@ jobs:
             ${{ runner.temp }}/release/*.tar.gz.sha256
             ${{ runner.temp }}/release/*.zip
             ${{ runner.temp }}/release/*.zip.sha256
+            ${{ runner.temp }}/release/*.pkg
+            ${{ runner.temp }}/release/*.pkg.sha256
           if-no-files-found: error
           compression-level: 0
           retention-days: 7
@@ -265,7 +268,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cd release
-          sha256sum --check ./*.tar.gz.sha256 ./*.zip.sha256
+          sha256sum --check ./*.tar.gz.sha256 ./*.zip.sha256 ./*.pkg.sha256
           TAG=$GITHUB_REF_NAME
           # A release that already exists for this tag (notes written ahead, or a draft) keeps
           # its title and notes, and a file it already has is never replaced or removed. Only
@@ -274,7 +277,7 @@ jobs:
             existing=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name')
             has() { grep -Fxq -- "$1" <<< "$existing"; }
             kept() { echo "::warning title=Release file not from this run::A release for $TAG already has $1; it was not replaced. It was not published by this run and may have no attestation."; }
-            for file in *.tar.gz *.zip; do
+            for file in *.tar.gz *.zip *.pkg; do
               if has "$file"; then
                 kept "$file"
                 # This run's checksum file describes this run's build, not the file the release keeps.
@@ -290,7 +293,7 @@ jobs:
             done
             exit 0
           fi
-          gh release create "$GITHUB_REF_NAME" ./*.tar.gz ./*.tar.gz.sha256 ./*.zip ./*.zip.sha256 \
+          gh release create "$GITHUB_REF_NAME" ./*.tar.gz ./*.tar.gz.sha256 ./*.zip ./*.zip.sha256 ./*.pkg ./*.pkg.sha256 \
             --repo "$GITHUB_REPOSITORY" --verify-tag --latest \
             --title "PS5 OpenGL 4.6 SDK ${GITHUB_REF_NAME#v}" \
-            --notes 'Experimental OpenGL 4.6 Core / GLSL 4.60 SDK, built from this tag. Includes all 657 OpenGL 4.6 Core entry points, compiled libraries, headers, source examples/dependencies, licenses, checksums and provenance. Host tests and relocated Make/pkg-config/CMake links passed. These freshly built binaries have NOT been validated on a PS5; hardware, CTS and performance results belong to their recorded binary identities. The ps5-opengl-showcase zip is the OpenGL 4.6 showcase demo app (PPSA99005) built against this SDK: extract it and upload its PPSA99005 folder to /data/homebrew/.'
+            --notes 'Experimental OpenGL 4.6 Core / GLSL 4.60 SDK, built from this tag. Includes all 657 OpenGL 4.6 Core entry points, compiled libraries, headers, source examples/dependencies, licenses, checksums and provenance. Host tests and relocated Make/pkg-config/CMake links passed. These freshly built binaries have NOT been validated on a PS5; hardware, CTS and performance results belong to their recorded binary identities. The ps5-opengl-showcase zip is the OpenGL 4.6 showcase demo app (PPSA99005) built against this SDK: extract it and upload its PPSA99005 folder to /data/homebrew/. The companion PKG is for a homebrew package installer.'

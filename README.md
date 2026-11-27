@@ -48,7 +48,7 @@ and video show 60 FPS.*
 
 ### Run the showcase on PS5
 
-Download `ps5-opengl-showcase-<version>-PPSA99005.zip` and its `.sha256` file
+For a package installer, choose the showcase `.pkg` from the build artifacts and verify it with the accompanying `.pkg.sha256`. For folder installation, download `ps5-opengl-showcase-<version>-PPSA99005.zip` and its `.sha256` file
 from the [latest release](https://github.com/BlackBearRevived/ps5-opengl/releases/latest).
 From the download directory in Linux or WSL, verify and extract the ZIP:
 
@@ -124,7 +124,7 @@ a prebuilt app. The ImGui, NanoVG and Sokol examples use those libraries'
 OpenGL 3.3 backends unchanged, which the OpenGL 4.6 SDK runs as-is.
 
 Each SDK release also attaches the showcase as a ready-to-install demo app
-(`ps5-opengl-showcase-<version>-PPSA99005.zip`). Each example is packaged as the
+(`ps5-opengl-showcase-<version>-PPSA99005.zip` and its companion `.pkg`). Each example is packaged as the
 native test title `PPSA99005`:
 
 ```sh
@@ -137,7 +137,7 @@ Deploy `build/native-app/PPSA99005/dist/PPSA99005` to `/data/homebrew/PPSA99005`
 
 `make demo` builds the demo app on its own: it builds the SDK if needed, fetches the
 pinned native-app boilerplate below `build/`, builds the showcase and writes
-`build/demo/ps5-opengl-showcase-<DEMO_VERSION>-PPSA99005.zip` with its checksum.
+a ZIP and a verified PKG named `ps5-opengl-showcase-<DEMO_VERSION>-PPSA99005` in `build/demo/`, each with its own SHA-256 checksum.
 It only builds; it never deploys or runs anything.
 
 ## Build from source
